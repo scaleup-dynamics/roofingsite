@@ -147,13 +147,21 @@ export default function ContactCTA() {
                 <div className="text-xs text-charcoal-500 uppercase tracking-wider font-mono">Email Us</div>
                 <div className="text-white font-semibold mt-0.5">{site.email}</div>
               </a>
-              <div className="glass-titanium rounded-2xl p-5">
-                <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center mb-3">
+              <a
+                href={site.mapUrl || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-titanium rounded-2xl p-5 hover:border-primary-500/30 transition-colors group block"
+              >
+                <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <MapPin className="w-5 h-5 text-primary-400" />
                 </div>
-                <div className="text-xs text-charcoal-500 uppercase tracking-wider font-mono">Service Area</div>
+                <div className="text-xs text-charcoal-500 uppercase tracking-wider font-mono flex items-center justify-between">
+                  <span>Service Area / Location</span>
+                  <span className="text-[10px] text-primary-400 group-hover:underline">View Map &rarr;</span>
+                </div>
                 <div className="text-white font-semibold mt-0.5">{site.serviceArea}</div>
-              </div>
+              </a>
               <div className="glass-titanium rounded-2xl p-5">
                 <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center mb-3">
                   <Clock className="w-5 h-5 text-primary-400" />

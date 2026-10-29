@@ -40,19 +40,7 @@ function PremiumAtmosphere({ active }: { active: boolean }) {
 }
 
 function ArchitecturalBackdrop() {
-  return (
-    <group position={[0, -2.15, -1.7]}>
-      <gridHelper args={[18, 18, '#173c59', '#0b1d2d']} />
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
-        <planeGeometry args={[18, 18]} />
-        <meshBasicMaterial color="#06111b" transparent opacity={0.82} />
-      </mesh>
-      <mesh position={[0, 2.35, -0.2]}>
-        <planeGeometry args={[14, 8]} />
-        <meshBasicMaterial color="#16415a" transparent opacity={0.3} />
-      </mesh>
-    </group>
-  );
+  return null;
 }
 
 function RoofPlane({ position, rotation, size, color = '#344d5c' }: RoofProps) {

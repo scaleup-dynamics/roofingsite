@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { MapPin, Home, Building, X, ChevronLeft, ChevronRight, Calendar, ScanLine, Eye, MoveHorizontal } from 'lucide-react';
 import Reveal from './Reveal';
 import TiltCard from './TiltCard';
+import { site } from '@/config/site';
 
 const projects = [
   { image: 'https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=1200', title: 'Modern Cottage Re-Roof', category: 'Residential', location: 'Lakeside, OR', detail: 'Complete tear-off and architectural shingle replacement on a 2,800 sq ft luxury cottage.', size: '32 Squares', duration: '2 Days' },
@@ -97,7 +98,7 @@ export default function Portfolio() {
                     <Calendar className="w-3 h-3" /> {project.duration}
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center gap-1.5 text-charcoal-300 text-xs mb-2 font-mono"><MapPin className="w-3.5 h-3.5" />{project.location}</div>
+                    <div className="flex items-center gap-1.5 text-charcoal-300 text-xs mb-2 font-mono"><MapPin className="w-3.5 h-3.5 text-primary-400" />{project.location.includes(',') ? `${project.location.split(',')[0]}, ${site.state || 'OR'}` : `${project.location}, ${site.city}`}</div>
                     <h3 className="font-display font-bold text-lg text-white mb-1">{project.title}</h3>
                     <p className="text-sm text-charcoal-300 max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-500 leading-relaxed">{project.detail}</p>
                     <div className="mt-3 flex items-center justify-between">

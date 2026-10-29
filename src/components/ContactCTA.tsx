@@ -11,9 +11,43 @@ type Status = 'idle' | 'loading' | 'success';
 export default function ContactCTA() {
   const [status, setStatus] = useState<Status>('idle');
   const [estimate, setEstimate] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [nameError, setNameError] = useState('');
   const [form, setForm] = useState({
     name: '', email: '', phone: '', propertyType: 'Residential', message: '',
   });
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only allow numbers, spaces, parentheses, hyphens, and optional leading +
+    const rawVal = e.target.value;
+    const cleanDigits = rawVal.replace(/\D/g, '');
+    
+    // Prevent typing if length exceeds 15 digits (standard international max)
+    if (cleanDigits.length > 15) return;
+
+    // Filter out disallowed characters on the fly
+    const filteredVal = rawVal.replace(/[^\d\s\(\)\-\+\.]/g, '');
+    setForm(prev => ({ ...prev, phone: filteredVal }));
+
+    if (cleanDigits.length > 0 && cleanDigits.length < 10) {
+      setPhoneError('Please enter a valid phone number (at least 10 digits).');
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    // Disallow numbers or special symbols in the name field (allow letters, spaces, hyphens, apostrophes)
+    const filtered = val.replace(/[^a-zA-Z\s\-\'\.]/g, '');
+    setForm(prev => ({ ...prev, name: filtered }));
+
+    if (filtered.trim().length > 0 && filtered.trim().length < 2) {
+      setNameError('Name must be at least 2 characters.');
+    } else {
+      setNameError('');
+    }
+  };
 
   useEffect(() => {
     const loadEstimate = () => {
@@ -30,10 +64,24 @@ export default function ContactCTA() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const digitsOnly = form.phone.replace(/\D/g, '');
+    if (digitsOnly.length < 10) {
+      setPhoneError('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    if (form.name.trim().length < 2) {
+      setNameError('Please enter your full name.');
+      return;
+    }
+
     setStatus('loading');
     setTimeout(() => {
       setStatus('success');
       setForm({ name: '', email: '', phone: '', propertyType: 'Residential', message: '' });
+      setPhoneError('');
+      setNameError('');
     }, 1200);
   };
 
@@ -151,8 +199,12 @@ export default function ContactCTA() {
                     <div>
                       <label className="block text-sm font-medium text-charcoal-300 mb-2">Full Name</label>
                       <input type="text" required value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className={inputClass} placeholder="John Smith" />
+                        onChange={handleNameChange}
+                        className={`${inputClass} ${nameError ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                        placeholder="John Smith" />
+                      {nameError && (
+                        <p className="mt-1.5 text-xs text-red-400 font-medium">{nameError}</p>
+                      )}
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-5">
@@ -165,8 +217,13 @@ export default function ContactCTA() {
                       <div>
                         <label className="block text-sm font-medium text-charcoal-300 mb-2">Phone</label>
                         <input type="tel" required value={form.phone}
-                          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                          className={inputClass} placeholder="(555) 000-0000" />
+                          onChange={handlePhoneChange}
+                          inputMode="tel"
+                          className={`${inputClass} ${phoneError ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                          placeholder="(555) 000-0000" />
+                        {phoneError && (
+                          <p className="mt-1.5 text-xs text-red-400 font-medium">{phoneError}</p>
+                        )}
                       </div>
                     </div>
 

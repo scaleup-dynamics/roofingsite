@@ -12,6 +12,7 @@ import FAQ from './components/FAQ';
 import ContactCTA from './components/ContactCTA';
 import Estimator from './components/Estimator';
 import Footer from './components/Footer';
+import MobileStickyBar from './components/MobileStickyBar';
 
 const ParticleField = lazy(() => import('./components/3d/ParticleField'));
 
@@ -36,6 +37,7 @@ function App() {
         <ContactCTA />
       </main>
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Shield, Star, Award, TrendingUp, MousePointerClick } from 'lucide-react
 import MagneticButton from './MagneticButton';
 import HeroScene3D from './3d/HeroScene3D';
 import { useDeviceCapabilities } from '@/hooks/useDeviceCapabilities';
+import { site } from '@/config/site';
 
 export default function Hero() {
   const caps = useDeviceCapabilities();
@@ -61,7 +62,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-success-500" />
               </span>
-              <span className="text-sm font-medium text-primary-200">Licensed &amp; Insured &bull; 25-Year Workmanship Warranty</span>
+              <span className="text-sm font-medium text-primary-200">{site.trustBadge || 'Licensed & Insured • 25-Year Workmanship Warranty'}</span>
             </div>
 
             <h1

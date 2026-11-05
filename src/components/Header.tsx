@@ -129,14 +129,6 @@ export default function Header() {
           </nav>
         </div>
       </header>
-      <div className="fixed inset-x-3 bottom-3 z-[60] grid grid-cols-[0.8fr_1.2fr] gap-2 rounded-2xl border border-white/10 bg-charcoal-980/95 p-2 shadow-2xl backdrop-blur-xl md:hidden safe-area-bottom">
-        <a href="tel:+15551234567" className="flex items-center justify-center gap-2 rounded-xl border border-white/10 px-3 py-3 text-sm font-semibold text-white">
-          <Phone className="h-4 w-4 text-primary-300" /> Call
-        </a>
-        <a href="#contact" className="flex items-center justify-center gap-2 rounded-xl bg-primary-500 px-3 py-3 text-sm font-semibold text-white">
-          Free Inspection <ChevronRight className="h-4 w-4" />
-        </a>
-      </div>
     </>
   );
 }

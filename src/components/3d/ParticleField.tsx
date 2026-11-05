@@ -52,7 +52,7 @@ function ParticleMesh({ count }: { count: number }) {
     const targetScroll = window.scrollY * 0.0002;
     scrollRef.current += (targetScroll - scrollRef.current) * 0.05;
 
-    pointsRef.current.rotation.y += 0.0004;
+    pointsRef.current.rotation.y += 0.0003;
     pointsRef.current.rotation.x += (mouseCurrent.current.y * 0.2 - pointsRef.current.rotation.x) * 0.01;
     pointsRef.current.rotation.z = mouseCurrent.current.x * 0.05;
     pointsRef.current.position.z = scrollRef.current * 5;
@@ -77,11 +77,12 @@ function ParticleMesh({ count }: { count: number }) {
   );
 }
 
-export default function ParticleField({ particleCount = 1500, dprMax = 1 }: Props) {
+export default function ParticleField({ particleCount = 700, dprMax = 1 }: Props) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const handle = () => setVisible(window.scrollY < window.innerHeight * 4);
+    // Only render when within top 2 viewport heights (Hero + Trust + top of Services)
+    const handle = () => setVisible(window.scrollY < window.innerHeight * 2);
     handle();
     window.addEventListener('scroll', handle, { passive: true });
     return () => window.removeEventListener('scroll', handle);
@@ -94,7 +95,7 @@ export default function ParticleField({ particleCount = 1500, dprMax = 1 }: Prop
       <Canvas
         camera={{ position: [0, 0, 30], fov: 60 }}
         dpr={[1, dprMax]}
-        gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
+        gl={{ alpha: true, antialias: false, powerPreference: 'low-power' }}
         frameloop="always"
         style={{ background: 'transparent' }}
       >

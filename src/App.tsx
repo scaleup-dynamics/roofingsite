@@ -13,15 +13,24 @@ import ContactCTA from './components/ContactCTA';
 import Estimator from './components/Estimator';
 import Footer from './components/Footer';
 import MobileStickyBar from './components/MobileStickyBar';
+import { useDeviceCapabilities } from './hooks/useDeviceCapabilities';
 
 const ParticleField = lazy(() => import('./components/3d/ParticleField'));
 
 function App() {
+  const caps = useDeviceCapabilities();
+
+  // Disable ambient 3D background on mobile, low-end devices, or when reduced motion is preferred
+  const showBackgroundParticles =
+    caps.supportsWebGL && !caps.isMobile && !caps.isLowEnd && !caps.prefersReducedMotion;
+
   return (
     <div className="relative min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-charcoal-980 text-charcoal-100 antialiased noise-bg">
-      <Suspense fallback={null}>
-        <ParticleField particleCount={1500} dprMax={1} />
-      </Suspense>
+      {showBackgroundParticles && (
+        <Suspense fallback={null}>
+          <ParticleField particleCount={caps.isLowEnd ? 400 : 700} dprMax={1} />
+        </Suspense>
+      )}
       <ScrollProgress />
       <Header />
       <main className="relative z-10 w-full overflow-x-hidden">

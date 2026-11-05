@@ -28,7 +28,7 @@ export default function Hero() {
     return () => { el.removeEventListener('mousemove', handle); cancelAnimationFrame(raf); };
   }, [caps.isMobile]);
 
-  const show3D = caps.supportsWebGL && !caps.prefersReducedMotion;
+  const show3D = caps.supportsWebGL && !caps.isLowEnd && !caps.prefersReducedMotion;
 
   return (
     <section
